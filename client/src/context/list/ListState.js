@@ -64,7 +64,8 @@ const ListState = props => {
                   'perro'
                 ]
             },
-        ]
+        ],
+        current: null
     };
 
     const [state, dispatch] = useReducer(listReducer, initialState);
@@ -74,11 +75,28 @@ const ListState = props => {
         list.id = uuidv4(); // Generate random ID
         dispatch({ type: ADD_LIST, payload: list});
     }
+
     // Delete List
+    const deleteList = id => {
+        dispatch({ type: DELETE_LIST, payload: id});
+    }
+
     // Delete Child List
     // Set Current List
+    const setCurrent = list => {
+        dispatch({ type: SET_CURRENT, payload: list});
+    }
+
     // Clear Current List
+    const clearCurrent = () => {
+        dispatch({ type: CLEAR_CURRENT });
+    }
+
     // Update List
+    const updateList = list => {
+        dispatch({ type: UPDATE_LIST, payload: list});
+    }
+
     // Filter Lists
     // Clear Filter
 
@@ -86,7 +104,12 @@ const ListState = props => {
         <ListContext.Provider
             value = {{
                 lists: state.lists,
-                addList
+                current: state.current,
+                addList,
+                deleteList,
+                setCurrent,
+                clearCurrent,
+                updateList
             }}
         >
             {props.children}

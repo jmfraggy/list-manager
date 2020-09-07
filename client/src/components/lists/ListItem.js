@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types';
+import ListContext from '../../context/list/listContext';
 
 const ListItem = ({ list }) => {
+    const listContext = useContext(ListContext);
+    const { deleteList, setCurrent, clearCurrent } = listContext;
 
     const { id, name, subList } = list;
+
+    const onDelete = () => {
+        deleteList(id);
+        clearCurrent();
+    };
 
     return (
         <div className="card bg-light">
@@ -24,12 +33,23 @@ const ListItem = ({ list }) => {
                     {/* <i className="fas fa-trash"></i> */}
                 </div>
             </ul>
-            {/* <div className='grid-2'>
-                <button style={{float:'left'}}className="btn btn-danger text-center">Delete</button>
-                <button style={{float:'right'}}className="btn btn-dark text-center">Edit</button>
-            </div> */}
+            <div className='grid-2'>
+                <button 
+                    style={{float:'left'}}
+                    className="btn btn-danger text-center"
+                    onClick={onDelete}> Delete </button>
+                <button 
+                    style={{float:'right'}}
+                    className="btn btn-dark text-center"
+                    onClick={() => setCurrent(list)}
+                    >Edit</button>
+            </div>
         </div>
     )
-}
+};
+
+ListItem.propTypes = {
+    list: PropTypes.object.isRequired,
+};
 
 export default ListItem;
