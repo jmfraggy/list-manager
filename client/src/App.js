@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import ListState from './context/list/ListState';
+
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
@@ -8,19 +10,21 @@ import './App.css';
 
 const App = () => {
   return (
-    <Router>
-      <Fragment>
-        <Navbar />
-        <div className="container">
-          <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/about' component={About}/>
+    <ListState>
+      <Router>
+        <Fragment>
 
-          </Switch>
-        </div>
-      </Fragment>
+          <Navbar />
+          <div className="container">
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/about' component={About} />
+            </Switch>
+          </div>
 
-    </Router>
+        </Fragment>
+      </Router>
+    </ListState>
   );
 }
 
