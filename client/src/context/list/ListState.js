@@ -7,7 +7,6 @@ import {
     GET_LISTS,
     ADD_LIST,
     DELETE_LIST,
-    DELETE_SUBLIST,
     SET_CURRENT,
     CLEAR_CURRENT,
     CLEAR_LISTS,
@@ -104,7 +103,6 @@ const ListState = props => {
         dispatch({ type: CLEAR_LISTS });
     }
 
-    // Delete Child List
     // Set Current List
     const setCurrent = list => {
         dispatch({ type: SET_CURRENT, payload: list });

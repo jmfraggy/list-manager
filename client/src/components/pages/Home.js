@@ -16,9 +16,9 @@ const Home = () => {
         <div className="grid-2">
             <ContactForm />
             <div>
-                <p className="bg-primary p text-center">
+                {/* <p className="bg-primary p text-center">
                     <i className="fas fa-plus"></i>
-                </p>
+                </p> */}
                 <div>
                     <Lists />
                 </div>

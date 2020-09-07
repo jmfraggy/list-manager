@@ -17,7 +17,7 @@ const ListItem = ({ list }) => {
         <div className="card bg-light">
             <div>
                 <h3 className="text-primary text-left">
-                    {name} {' '}
+                    {name}
                 </h3> 
             </div>
             <ul>
@@ -36,11 +36,11 @@ const ListItem = ({ list }) => {
             <div className='grid-2'>
                 <button 
                     style={{float:'left'}}
-                    className="btn btn-danger text-center"
+                    className="btn btn-danger btn-sm text-center"
                     onClick={onDelete}> Delete </button>
                 <button 
                     style={{float:'right'}}
-                    className="btn btn-dark text-center"
+                    className="btn btn-dark btn-sm text-center"
                     onClick={() => setCurrent(list)}
                     >Edit</button>
             </div>

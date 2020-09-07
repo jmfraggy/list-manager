@@ -15,7 +15,7 @@ const Lists = () => {
     }, []);
 
     if (lists !== null && lists.length === 0 && !loading) {
-        return <h3 className="text-center">Click the button to add a List!</h3>;
+        return <h3 className="text-center">Create a List!</h3>;
     }
 
     return (

@@ -37,6 +37,14 @@ const ListEdit = () => {
         });
     };
 
+    const onDeleteElement = (i, e) => {
+        let newArr = [...subList];
+        setList({
+            ...list,
+            subList: newArr.filter((el, id) => id !== i),
+        });
+    };
+
     const onSubmit = e => {
         e.preventDefault();
         if (current === null) {
@@ -60,7 +68,7 @@ const ListEdit = () => {
     const clearAll = () => {
         clearCurrent();
     };
-    
+
     const { name, subList } = list;
     return (
         <form onSubmit={onSubmit}>
@@ -73,23 +81,35 @@ const ListEdit = () => {
                 name='name'
                 value={name}
                 onChange={onChange} />
-            {subList.map((list, i) => <input
-                type="text"
-                placeholder="Sub List"
-                name='subList'
-                value={list}
-                key={i}
-                onChange={(e) => onChangeElement(i, e)} />
+            {subList.map((list, i) =>
+                <div key={i} style={{ display: 'table' }}>
+                    <button 
+                        type='button' 
+                        className='btn-delete btn-block'
+                        onClick={(e) => onDeleteElement(i, e)}>
+                        <i className="fas fa-times"></i>
+                    </button>
+
+                    <div style={{ display: 'table-cell', width: '100%' }}>
+                        <input
+                            type="text"
+                            placeholder="Sub List"
+                            name='subList'
+                            value={list}
+                            key={i}
+                            onChange={(e) => onChangeElement(i, e)} />
+                    </div>
+                </div>
             )}
             <div>
-                <button type='addElement' className="btn btn-light btn-block text-center" onClick={addElement}>Add Element</button>
+                <button type='addElement' className="btn btn-light btn-sm btn-block text-center" onClick={addElement}>Add Element</button>
                 <input
                     type='submit'
                     value={current ? 'Update List' : 'Add List'}
                     className="btn btn-primary btn-block" />
                 {current && (<div>
                     <button
-                        className="btn btn-light btn-block"
+                        className="btn btn-light btn-sm btn-block"
                         onClick={clearAll}>Clear</button>
                 </div>)}
             </div>

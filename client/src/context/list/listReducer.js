@@ -2,7 +2,6 @@ import {
     GET_LISTS,
     ADD_LIST,
     DELETE_LIST,
-    DELETE_SUBLIST,
     SET_CURRENT,
     CLEAR_CURRENT,
     UPDATE_LIST,
