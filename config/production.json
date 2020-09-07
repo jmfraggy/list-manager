@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://fraggy_123:Fragoso.44@listmanager.nzbz4.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtSecret": "fraggy-secret"
+}
