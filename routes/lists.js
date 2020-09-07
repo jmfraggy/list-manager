@@ -57,7 +57,9 @@ router.put('/:id', auth, async (req, res) => {
     // Build list object
     const listFields = {};
     if (name) listFields.name = name;
-
+    if (subList) {
+        listFields.subList = [...subList];
+    } 
     try {
         // Find List by ID
         let list = await List.findById(req.params.id); 
@@ -66,12 +68,7 @@ router.put('/:id', auth, async (req, res) => {
         if (list.user.toString() !== req.user.id) {
             return res.status(401).json({ msg: 'Not authorized' });
         }
-
-        // Take the old sub-list & update
-        if (subList) {
-            listFields.subList = [...list.subList, ...subList];
-        } 
-
+        
         list = await List.findByIdAndUpdate(req.params.id,
             { $set: listFields },
             { new: true });

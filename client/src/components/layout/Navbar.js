@@ -2,14 +2,18 @@ import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AuthContext from '../../context/auth/authContext';
+import ListContext from '../../context/list/listContext';
 
 const Navbar = ({ title, icon }) => {
     const authContext = useContext(AuthContext);
+    const listContext = useContext(ListContext);
 
-    const { isAuthenticated, logout, user } = authContext;
+    const { isAuthenticated, logout } = authContext;
+    const { clearLists } = listContext;
 
     const onLogout = () => {
         logout();
+        clearLists();
     };
 
     const authLinks = (

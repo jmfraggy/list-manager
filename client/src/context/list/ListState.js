@@ -1,88 +1,113 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 
-import { v4 as uuidv4 } from 'uuid';
 import ListContext from './listContext';
 import listReducer from './listReducer';
 import {
+    GET_LISTS,
     ADD_LIST,
     DELETE_LIST,
     DELETE_SUBLIST,
     SET_CURRENT,
     CLEAR_CURRENT,
+    CLEAR_LISTS,
     UPDATE_LIST,
+    LIST_ERROR
 } from '../types';
 
 const ListState = props => {
     const initialState = {
-        lists: [
-            {
-                id: 1,
-                name: 'Numbers',
-                subList: [
-                    1,
-                    2,
-                    3
-                ]
-            },
-            {
-                id: 2,
-                name: 'Colors',
-                subList: [
-                    'green',
-                    'black',
-                    'red'
-                ]
-            },
-            {
-                id: 3,
-                name: 'Numbers',
-                subList: [
-                  
-                ]
-            },
-            {
-                id: 4,
-                name: 'Colors',
-                subList: [
-                    'green',
-                    'black',
-                    'red'
-                ]
-            },
-            {
-                id: 5,
-                name: 'Numbers',
-                subList: [
-                  1,
-                  2,
-                  3,
-                  4,
-                  5,
-                  6,
-                  'perro'
-                ]
-            },
-        ],
-        current: null
+        lists: null,
+        current: null,
+        error: null
     };
 
     const [state, dispatch] = useReducer(listReducer, initialState);
 
+    // Get Lists
+    const getLists = async () => {
+        try {
+            const res = await axios.get('/api/lists');
+            dispatch({
+                type: GET_LISTS,
+                payload: res.data
+            });
+        } catch (error) {
+            dispatch({
+                type: LIST_ERROR,
+                payload: error.response.msg
+            });
+        }
+    }
+
     // Add List
-    const addList = list => {
-        list.id = uuidv4(); // Generate random ID
-        dispatch({ type: ADD_LIST, payload: list});
+    const addList = async list => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.post('/api/lists', list, config);
+            dispatch({
+                type: ADD_LIST,
+                payload: res.data
+            });
+        } catch (error) {
+            dispatch({
+                type: LIST_ERROR,
+                payload: error.response.msg
+            });
+        }
     }
 
     // Delete List
-    const deleteList = id => {
-        dispatch({ type: DELETE_LIST, payload: id});
+    const deleteList = async id => {
+        try {
+            await axios.delete(`/api/lists/${id}`);
+            dispatch({
+                type: DELETE_LIST,
+                payload: id
+            });
+        } catch (error) {
+            dispatch({
+                type: LIST_ERROR,
+                payload: error.response.msg
+            });
+        }
+    }
+
+    // Update List
+    const updateList = async list => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        try {
+            const res = await axios.put(`/api/lists/${list._id}`, list, config);
+            dispatch({ 
+                type: UPDATE_LIST, 
+                payload: res.data 
+            });
+
+        } catch (error) {
+            dispatch({
+                type: LIST_ERROR,
+                payload: error.response.msg
+            });
+        }
+    }
+
+    // Clear Lists
+    const clearLists = () => {
+        dispatch({ type: CLEAR_LISTS });
     }
 
     // Delete Child List
     // Set Current List
     const setCurrent = list => {
-        dispatch({ type: SET_CURRENT, payload: list});
+        dispatch({ type: SET_CURRENT, payload: list });
     }
 
     // Clear Current List
@@ -90,23 +115,20 @@ const ListState = props => {
         dispatch({ type: CLEAR_CURRENT });
     }
 
-    // Update List
-    const updateList = list => {
-        dispatch({ type: UPDATE_LIST, payload: list});
-    }
-
-    // Filter Lists
-    // Clear Filter
+    // TODO: Filter Lists & Clear Filter
 
     return (
         <ListContext.Provider
-            value = {{
+            value={{
                 lists: state.lists,
                 current: state.current,
+                error: state.error,
+                getLists,
                 addList,
                 deleteList,
                 setCurrent,
                 clearCurrent,
+                clearLists,
                 updateList
             }}
         >
