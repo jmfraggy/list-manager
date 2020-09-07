@@ -319,6 +319,8 @@ input {
 }
 
 input[type='text'],
+input[type='email'],
+input[type='password'],
 select,
 textarea {
   display: block;

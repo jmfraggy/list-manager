@@ -10,8 +10,7 @@ const Home = () => {
                 <p className="bg-primary p text-center">
                     <i className="fas fa-plus"></i>
                 </p>
-                <div className="grid-3">
-
+                <div>
                     <Lists />
                 </div>
             </div>

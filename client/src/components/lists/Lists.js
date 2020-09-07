@@ -9,7 +9,7 @@ const Lists = () => {
     const { lists } = listContext;
     return (
         <Fragment >
-            <TransitionGroup>
+            <TransitionGroup className="grid-3">
                 {lists.map(list =>
                     <CSSTransition key={list.id} timeout={500} classNames="item">
                         <ListItem list={list}  />

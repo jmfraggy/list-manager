@@ -10,8 +10,6 @@ import {
     SET_CURRENT,
     CLEAR_CURRENT,
     UPDATE_LIST,
-    FILTER_LISTS,
-    CLEAR_FILTER
 } from '../types';
 
 const ListState = props => {
