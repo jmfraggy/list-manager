@@ -1,18 +1,21 @@
 import React from 'react'
 import Lists from '../lists/Lists';
+import ContactForm from '../lists/ListForm';
 
 const Home = () => {
     return (
-        <div >
-            <div className="card">
-                <p className="bg-dark p text-center">
-                    Add New List
-                    </p>
-            </div>
-            <div className="grid-3">
+        <div className="grid-2">
+            <ContactForm />
+            <div>
+                <p className="bg-primary p text-center">
+                    <i className="fas fa-plus"></i>
+                </p>
+                <div className="grid-3">
 
-                <Lists />
+                    <Lists />
+                </div>
             </div>
+
         </div>
     )
 }

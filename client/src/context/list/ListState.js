@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import ListContext from './listContext';
 import listReducer from './listReducer';
 import {
@@ -39,15 +39,7 @@ const ListState = props => {
                 id: 3,
                 name: 'Numbers',
                 subList: [
-                    1,
-                    2,
-                    3,
-                    1,
-                    2,
-                    3,
-                    1,
-                    2,
-                    3
+                  
                 ]
             },
             {
@@ -58,13 +50,30 @@ const ListState = props => {
                     'black',
                     'red'
                 ]
-            }
+            },
+            {
+                id: 5,
+                name: 'Numbers',
+                subList: [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  'perro'
+                ]
+            },
         ]
     };
 
     const [state, dispatch] = useReducer(listReducer, initialState);
 
     // Add List
+    const addList = list => {
+        list.id = uuidv4(); // Generate random ID
+        dispatch({ type: ADD_LIST, payload: list});
+    }
     // Delete List
     // Delete Child List
     // Set Current List
@@ -76,7 +85,8 @@ const ListState = props => {
     return (
         <ListContext.Provider
             value = {{
-                lists: state.lists
+                lists: state.lists,
+                addList
             }}
         >
             {props.children}
